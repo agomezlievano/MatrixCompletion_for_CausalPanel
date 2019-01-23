@@ -1,0 +1,786 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{AtheyMatCompletion\_0001\_loading\_and\_exploring}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}162}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+          \PY{k+kn}{import} \PY{n+nn}{datetime}
+          
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k}{def} \PY{n+nf}{ends}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{setattr}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ends}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ends}\PY{p}{)}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          
+          \PY{k+kn}{import} \PY{n+nn}{itertools}
+          \PY{k+kn}{import} \PY{n+nn}{collections}
+          
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+\end{Verbatim}
+
+
+    \hypertarget{what-were-doing}{%
+\section{What we're doing}\label{what-were-doing}}
+
+    I have been very interested lately in two related, but different
+questions: 1) How to \emph{apply} Machine Learning to Economics, and how
+to integrate ML into the usual econometric pipeline? 2) What do the ML
+algorithms themselves teach us about how economies work.
+
+This notebook is about the point 1. In particular, about the problem of
+estimating causal inference.
+
+    We are going to replicate the methodology (and hopefully results) of a
+recent paper in which the problem of causal inference is seen from the
+lens of the problem of `'matrix completion'' from the machine learning
+literature. I found out about this paper thanks to my dear friend Sid
+Ravinutala.
+
+    In the last months, I've become increasingly interested in Susan Athey's
+work, who's precisely preaching about the importance of using ML in
+economics.
+
+    \hypertarget{set-up-of-the-problem}{%
+\section{Set up of the problem}\label{set-up-of-the-problem}}
+
+    The paper we want to reproduce is:
+
+`'Matrix Completion Methods for Causal Panel Data Models'' by Susan
+Athey, Mohsen Bayati, Nikolay Doudchenko, Guido Imbens, Khashayar
+Khosravi (NBER Working Paper No.~25132, also available in
+\href{https://arxiv.org/pdf/1710.10251.pdf}{arxiv})
+
+    The setup of the problem is to consider \(N\) units across \(T\) time
+steps. For each unit and time, there are two potential outcomes:
+\(Y_{it}(0)\) if not treated, \(Y_{it}(1)\) if treated. The treatment
+variable can be denoted by \(W_{it}\). Hence, the realized outcome is
+\(Y_{it}=Y_{it}(W_{it})\).
+
+The basic goal of causal identification is to estimate
+\[\widehat{ATE} \equiv \frac{1}{NT}\sum_{i,t}\left(Y_{it}(1) - Y_{it}(0)\right.)\]
+The fundamental problem in causal identification, however, is that we
+never observe both \(Y_{it}(0)\) and \(Y_{it}(1)\). We either observe
+one, or the other.
+
+    Athey's et al. (2018) solution is based on the following: First,
+\(Y_{it}(0)\) (or \(Y_{it}(1)\)) is a \(N\times T\) matrix with missing
+values. Second, there are several methodologies to impute missing values
+in matrices. Hence, to get the `'counterfactual'' matrix, we can make
+use of the methods to impute missing values.
+
+Athey et al.~focus specifically on imputing missing values in
+\(Y_{it}(0)\) (i.e., the counterfactuals of those treated).
+
+Many algorithms for imputing missing values in matrices are based on
+matrix factorization methods. The different methods differ in the
+constraints. See \href{https://arxiv.org/pdf/1410.0342.pdf}{Udell et al.
+(2015)} for a good review.
+
+    Athey's et al. (2018) use the method `'Nuclear Norm Matrix Completion
+Estimator''.
+
+    \hypertarget{nuclear-norm-matrix-completion-estimator}{%
+\section{Nuclear Norm Matrix Completion
+Estimator}\label{nuclear-norm-matrix-completion-estimator}}
+
+    Let us represent the \(N\times T\) matrix we are interested in with
+\(\mathbf{Y}=\mathbf{L^*}+\boldsymbol{\varepsilon}\), where
+\(\boldsymbol{\varepsilon}\) can be considered as measurement error.
+Athey et al.~set up the methodological problem as estimating \[
+\widehat{\mathbf{L}}=\mathrm{arg min}_{\mathbf{L}}\left\{\frac{1}{\left|\mathcal{O}\right|}\left\| \mathbf{P}_{\mathcal{O}}(\mathbf{Y}-\mathbf{L}) \right\|_{F}^2 + \lambda \left\| \mathbf{L} \right\|_{*} \right\}.
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  The set of \emph{non-missing} elements is defined by all
+  \((i,t)\in\mathcal{O}\), while the set of \emph{missing} elements by
+  \((i,t)\in\mathcal{M}\).
+\item
+  The term \(\mathbf{P}_{\mathcal{O}}(\mathbf{A})\) is an operator that
+  sets to \(0\) all the elements in matrix \(\mathbf{A}\) which do not
+  belong to the set of matrix elements \(\mathcal{O}\). In other words,
+  we just keep the non-missing elements \(\mathcal{O}\), but we replace
+  the missing elements with 0's.
+  \(\mathbf{P}_{\mathcal{O}}^{\bot}(\mathbf{A})\) would do the opposite.
+\item
+  The term \(\left\| \cdot \right\|_{F}^2\) is the Frobenius Norm:
+  \(\left\| \mathbf{A} \right\|_{F}^2 = \sum_{i,j}A_{i,j}^2=\sum_k\sigma_k(\mathbf{A})^2\),
+  where \(\sigma_i(\mathbf{A})\) are the singular values of the matrix
+  (given by a Singular Value Decomposition).
+\item
+  The term \(\left\| \cdot \right\|_{*}\) is the \textbf{Nuclear Norm}
+  regularization of the minimization problem, given by
+  \(\left\| \mathbf{A} \right\|_{*} = \sum_k\sigma_k(\mathbf{A})\).
+  Recall that the singular values are always non-negative.
+\end{itemize}
+
+    The regularization has a very important role in the problem, since we
+want \(\mathbf{L}\) to approximate the matrix \(\mathbf{Y}\), not make
+it equal, but only taking into account the information from the
+non-missing elements. The Nuclear Norm, from other matrix norms, is
+appropriate here because it makes the problem a convex optimization
+problem (see discussion in the paper, page. 14).
+
+    \hypertarget{estimation-procedure}{%
+\section{Estimation procedure}\label{estimation-procedure}}
+
+    Athey et al.~propose an iterative algorithm which may seem weird at
+first as a solution to the problem. But before we go there, notice the
+following: - In principle, for a complete matrix \(\mathbf{Y}\), it
+holds that
+\(\mathbf{Y} = \mathbf{P}_{\mathcal{O}}(\mathbf{Y}) + \mathbf{P}_{\mathcal{O}}^{\bot}(\mathbf{Y})\).
+- However, we do not have the values for the opperation
+\(\mathbf{P}_{\mathcal{O}}^{\bot}(\mathbf{Y})\) to work. - Assuming that
+we had some \(\mathbf{L}_k\) that approximates the missing values of
+\(\mathbf{Y}\) we could have
+\(\mathbf{P}_{\mathcal{O}}^{\bot}(\mathbf{L}_k)\) in lieu. - But we want
+to use the information in \(\mathbf{P}_{\mathcal{O}}(\mathbf{Y})\) to
+generate the approximation \(\mathbf{L}_k\). The way to do this is by
+the approximation using the singular value decomposition. This is
+carried by the function \(\mathrm{shrink}_\lambda(\mathbf{A})\). - To be
+clear, \(\mathrm{shrink}_\lambda(\mathbf{A})\) is simply a function that
+returns an approximated version of the matrix \(\mathbf{A}\) using a
+singular value decomposition by taking only the singular values larger
+or equal than \(\lambda\). In other words, if
+\(\mathbf{A}=\mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T\) \[
+\mathrm{shrink}_\lambda(\mathbf{A}) = \mathbf{U}\boldsymbol{\Sigma}_{\mathrm{reduced}}\mathbf{V}^T,
+\] where \(\boldsymbol{\Sigma}_{\mathrm{reduced}}\) is equal to
+\(\boldsymbol{\Sigma}\) except that all diagonal elements \(k\) less
+than \(\sigma_k(\mathbf{A})<\lambda\) have been set to zero. - Now, if
+we initialize \(\mathbf{L}_1\) with some value, we can have an
+approximation for \(\mathbf{Y}\) because
+\(\mathbf{L}_2 = \mathrm{shrink}_\lambda(\mathbf{P}_{\mathcal{O}}(\mathbf{Y}) + \mathbf{P}_{\mathcal{O}}^{\bot}(\mathbf{L}_1))\).
+- Maybe if we repeat this many times, it will converge to some
+reasonable solution such that
+\(\widehat{\mathbf{L}}=\lim_{n\rightarrow\infty}\mathbf{L}_n\).
+
+I suppose they realized of this by thinking backwards. In other words,
+the solution \(\widehat{\mathbf{L}}\) should satisfy the relation, for a
+given value of \(\lambda\):
+\[\widehat{\mathbf{L}} = \mathrm{shrink}_\lambda(\mathbf{P}_{\mathcal{O}}(\mathbf{Y}) + \mathbf{P}_{\mathcal{O}}^{\bot}(\widehat{\mathbf{L}})).\]
+This is what's behind the iterative estimation algorithm.
+
+    \hypertarget{the-matrix-completion-with-nuclear-norm-minimization-estimator-mcnnm}{%
+\subsubsection{The ``Matrix-Completion with Nuclear Norm Minimization''
+estimator
+(MCNNM)}\label{the-matrix-completion-with-nuclear-norm-minimization-estimator-mcnnm}}
+
+    Formally, they write it like: \[
+\mathbf{L}_{k+1}(\lambda, \mathcal{O})=\mathrm{shrink}_{\frac{\lambda |\mathcal{O}| }{2}}\left\{\mathbf{P}_{\mathcal{O}}(\mathbf{Y}) + \mathbf{P}_{\mathcal{O}}^{\bot}(\mathbf{L}_{k}(\lambda, \mathcal{O}))\right\}.
+\]
+
+    \hypertarget{cross-validation}{%
+\subsubsection{Cross-validation}\label{cross-validation}}
+
+    The approximation, and as a consequence the estimate, will depend on the
+value of \(\lambda\). As a hyper-parameter, we will choose its value
+through cross-validation.
+
+Athey et al.~propose to use some sort of \(K\)-fold cross-validation,
+and choose \(K\) such that
+\[\left|\mathcal{O}_k\right|/\left|\mathcal{O}\right| = \left|\mathcal{O}\right|/(NT).\]
+That is, such that the fraction of non-missing values in a given
+validation set \(\mathcal{O}_k\) is equal to the fraction of non-missing
+values in the original matrix. We will do this making use of Grid
+Search.
+
+    \hypertarget{python-implementation}{%
+\section{Python implementation}\label{python-implementation}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Let\PYZsq{}s begin with the P operators}
+         \PY{k}{def} \PY{n+nf}{PO\PYZus{}operator}\PY{p}{(}\PY{n}{Amat}\PY{p}{,} \PY{n}{setO}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Set all elements that are not in setO to 0. It assumes that setO}
+         \PY{l+s+sd}{    comes from applying np.nonzero(A==condition) to a matrix.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{Anew} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{Amat}\PY{p}{)}
+             \PY{n}{Anew}\PY{p}{[}\PY{n}{setO}\PY{p}{]} \PY{o}{=} \PY{n}{Amat}\PY{p}{[}\PY{n}{setO}\PY{p}{]}
+         
+             \PY{k}{return} \PY{n}{Anew}
+         
+         \PY{k}{def} \PY{n+nf}{POcomp\PYZus{}operator}\PY{p}{(}\PY{n}{Amat}\PY{p}{,} \PY{n}{setO}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    The complement of PO\PYZus{}operator.}
+         \PY{l+s+sd}{    Set all elements that are in setO to 0. It assumes that setO}
+         \PY{l+s+sd}{    comes from applying np.nonzero(A==condition) to a matrix.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{Anew} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{Amat}\PY{p}{)}
+             \PY{n}{Anew}\PY{p}{[}\PY{n}{setO}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         
+             \PY{k}{return} \PY{n}{Anew}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} Lets code the shrink operator}
+         \PY{k}{def} \PY{n+nf}{shrink}\PY{p}{(}\PY{n}{Amat}\PY{p}{,} \PY{n}{lamb}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{doprint}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    This generates a reduced version of A given by the singular value decomposition.}
+         \PY{l+s+sd}{    It only takes the singular above lamb.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{U}\PY{p}{,} \PY{n}{Sigma}\PY{p}{,} \PY{n}{VT} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{Amat}\PY{p}{,} \PY{n}{full\PYZus{}matrices}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             
+             \PY{k}{if}\PY{p}{(}\PY{n}{doprint}\PY{p}{)}\PY{p}{:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{Sigma}\PY{p}{)}
+             
+             \PY{n}{Sigma}\PY{p}{[}\PY{n}{Sigma} \PY{o}{\PYZlt{}} \PY{n}{lamb}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{k}{return} \PY{n}{U}\PY{n+nd}{@np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{Sigma}\PY{p}{)}\PY{n+nd}{@VT}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{c+c1}{\PYZsh{} The loss function}
+          \PY{k}{def} \PY{n+nf}{loss}\PY{p}{(}\PY{n}{Ymat}\PY{p}{,} \PY{n}{Lmat}\PY{p}{,} \PY{n}{setO}\PY{p}{,} \PY{n}{doprint}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+              \PY{n}{Ocardinality} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{setO}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{diffmat} \PY{o}{=} \PY{n}{Ymat} \PY{o}{\PYZhy{}} \PY{n}{Lmat}
+              \PY{k}{if}\PY{p}{(}\PY{n}{doprint}\PY{p}{)}\PY{p}{:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{diffmat}\PY{p}{)}
+              \PY{n}{outmat} \PY{o}{=} \PY{n}{PO\PYZus{}operator}\PY{p}{(}\PY{n}{diffmat}\PY{p}{,} \PY{n}{setO}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+              \PY{k}{return} \PY{p}{(}\PY{n}{outmat}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{Ocardinality}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}161}]:} \PY{c+c1}{\PYZsh{} The \PYZdq{}Matrix\PYZhy{}Completion with Nuclear Norm Minimization\PYZdq{} estimator}
+          \PY{k}{def} \PY{n+nf}{do\PYZus{}MCNNM}\PY{p}{(}\PY{n}{Ymat}\PY{p}{,} \PY{n}{setOk}\PY{p}{,} \PY{n}{lamb}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{max\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{doprint}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{printbatch} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    This implements the iterative procedure to estimate L.}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{N}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{n}{Ymat}\PY{o}{.}\PY{n}{shape}
+              
+              \PY{c+c1}{\PYZsh{} Initialize L to the observed (non\PYZhy{}missing) values of Y given by the set setOk}
+              \PY{n}{Lprev} \PY{o}{=} \PY{n}{PO\PYZus{}operator}\PY{p}{(}\PY{n}{Ymat}\PY{p}{,} \PY{n}{setOk}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Initialization of error with a highvalue and the iteration}
+              \PY{n}{error} \PY{o}{=} \PY{n}{N}\PY{o}{*}\PY{n}{T}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}
+              \PY{n}{iteration} \PY{o}{=} \PY{l+m+mi}{0}
+              
+              \PY{k}{while}\PY{p}{(}\PY{p}{(}\PY{n}{error} \PY{o}{\PYZgt{}} \PY{n}{epsilon}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{iteration} \PY{o}{\PYZlt{}} \PY{n}{max\PYZus{}iters}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{Lnext} \PY{o}{=} \PY{n}{shrink}\PY{p}{(}\PY{n}{PO\PYZus{}operator}\PY{p}{(}\PY{n}{Ymat}\PY{p}{,} \PY{n}{setOk}\PY{p}{)} \PY{o}{+} \PY{n}{POcomp\PYZus{}operator}\PY{p}{(}\PY{n}{Lprev}\PY{p}{,} \PY{n}{setOk}\PY{p}{)}\PY{p}{,} \PY{n}{lamb} \PY{o}{=} \PY{n}{lamb}\PY{p}{)}
+                  
+                  \PY{c+c1}{\PYZsh{} Updating values}
+                  \PY{n}{Lprev} \PY{o}{=} \PY{n}{Lnext}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{error} \PY{o}{=} \PY{n}{loss}\PY{p}{(}\PY{n}{Ymat}\PY{p}{,} \PY{n}{Lprev}\PY{p}{,} \PY{n}{setOk}\PY{p}{)}
+                  \PY{n}{iteration} \PY{o}{=} \PY{n}{iteration} \PY{o}{+} \PY{l+m+mi}{1}
+                  
+                  \PY{k}{if}\PY{p}{(}\PY{n}{doprint} \PY{o+ow}{and} \PY{p}{(}\PY{n}{iteration}\PY{o}{\PYZpc{}}\PY{k}{printbatch}==0 or iteration==1)):
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{ Current loss: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{iteration}\PY{p}{,} \PY{n}{error}\PY{p}{)}\PY{p}{)}
+              
+              \PY{k}{if}\PY{p}{(}\PY{n}{doprint}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Final values:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{ Current loss: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{iteration}\PY{p}{,} \PY{n}{error}\PY{p}{)}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{Ymat}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{Lnext}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          
+              \PY{k}{return} \PY{n}{Lnext}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Cross\PYZhy{}validation}
+        \PY{k}{def} 
+\end{Verbatim}
+
+
+    \hypertarget{toy-testing}{%
+\subsection{Toy testing}\label{toy-testing}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}145}]:} \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{A}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:} array([[  1.,   2.,  nan,   0.],
+                 [ nan,   2.,   2.,   1.],
+                 [  3.,   0.,   1.,   3.],
+                 [  0.,   0.,   2.,  nan]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{n}{observedset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{observedset}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{observedset}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+13
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}129}]:} (array([0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3], dtype=int64),
+           array([0, 1, 3, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2], dtype=int64))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{PO\PYZus{}operator}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{observedset}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:} array([[ 1.,  2.,  0.,  0.],
+                 [ 0.,  2.,  2.,  1.],
+                 [ 3.,  0.,  1.,  3.],
+                 [ 0.,  0.,  2.,  0.]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{POcomp\PYZus{}operator}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{observedset}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}131}]:} array([[  0.,   0.,  nan,   0.],
+                 [ nan,   0.,   0.,   0.],
+                 [  0.,   0.,   0.,   0.],
+                 [  0.,   0.,   0.,  nan]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{PO\PYZus{}operator}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{observedset}\PY{p}{)} \PY{o}{+} \PY{n}{POcomp\PYZus{}operator}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{observedset}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}132}]:} array([[  1.,   2.,  nan,   0.],
+                 [ nan,   2.,   2.,   1.],
+                 [  3.,   0.,   1.,   3.],
+                 [  0.,   0.,   2.,  nan]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{shrink}\PY{p}{(}\PY{n}{PO\PYZus{}operator}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{observedset}\PY{p}{)}\PY{p}{,} \PY{n}{doprint}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 4.77539086  3.01152294  2.12336094  0.78594529]
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}133}]:} array([[  1.00000000e+00,   2.00000000e+00,   2.22044605e-16,
+                   -2.22044605e-16],
+                 [  0.00000000e+00,   2.00000000e+00,   2.00000000e+00,
+                    1.00000000e+00],
+                 [  3.00000000e+00,   0.00000000e+00,   1.00000000e+00,
+                    3.00000000e+00],
+                 [  6.10622664e-16,   8.88178420e-16,   2.00000000e+00,
+                   -7.77156117e-16]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{L1} \PY{o}{=} \PY{n}{shrink}\PY{p}{(}\PY{n}{PO\PYZus{}operator}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{observedset}\PY{p}{)}\PY{p}{,} \PY{n}{lamb} \PY{o}{=} \PY{l+m+mf}{1.5}\PY{p}{)}
+          \PY{n}{L1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}134}]:} array([[  7.46799657e-01,   2.04660961e+00,  -1.03464140e-01,
+                    2.88085806e-01],
+                 [  2.75984114e-01,   1.94919631e+00,   2.11277417e+00,
+                    6.85991318e-01],
+                 [  3.00188696e+00,  -3.47354839e-04,   1.00077106e+00,
+                    2.99785306e+00],
+                 [ -3.27503074e-01,   6.02873970e-02,   1.86617386e+00,
+                    3.72625827e-01]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{n}{loss}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{L1}\PY{p}{,} \PY{n}{observedset}\PY{p}{,} \PY{n}{doprint}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 0.25320034 -0.04660961         nan -0.28808581]
+ [        nan  0.05080369 -0.11277417  0.31400868]
+ [-0.00188696  0.00034735 -0.00077106  0.00214694]
+ [ 0.32750307 -0.0602874   0.13382614         nan]]
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:} 0.043955478446319037
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{n}{Lest} \PY{o}{=} \PY{n}{do\PYZus{}MCNNM}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{observedset}\PY{p}{,} \PY{n}{lamb} \PY{o}{=} \PY{l+m+mf}{2.5}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,} \PY{n}{doprint}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 1	 Current loss: 0.5529274516247817
+Iteration 10	 Current loss: 0.37461275410122796
+Iteration 20	 Current loss: 0.3698980768609287
+Iteration 30	 Current loss: 0.3694973444179368
+Iteration 40	 Current loss: 0.36943523600957867
+Iteration 50	 Current loss: 0.36942435600321566
+Iteration 60	 Current loss: 0.36942236604808826
+Iteration 70	 Current loss: 0.3694219954876393
+Iteration 80	 Current loss: 0.369421925951333
+Iteration 90	 Current loss: 0.3694219128593888
+Iteration 100	 Current loss: 0.36942191039096084
+
+Final values:
+Iteration 100	 Current loss: 0.36942191039096084
+
+[[  1.   2.  nan   0.]
+ [ nan   2.   2.   1.]
+ [  3.   0.   1.   3.]
+ [  0.   0.   2.  nan]]
+[[ 0.98  2.01  3.49  0.02]
+ [ 1.56  1.33  2.39  0.97]
+ [ 3.01  0.33  0.81  3.01]
+ [ 0.04  0.87  1.49 -0.4 ]]
+
+    \end{Verbatim}
+
+    \hypertarget{using-the-abadie-diamond-hainmueller-california-smoking-data}{%
+\section{Using the Abadie-Diamond-Hainmueller California Smoking
+Data}\label{using-the-abadie-diamond-hainmueller-california-smoking-data}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}153}]:} \PY{n}{PATH\PYZus{}FROM\PYZus{}URL} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://raw.githubusercontent.com/susanathey/MCPanel/master/tests/examples\PYZus{}from\PYZus{}paper/california/}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{mydf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{PATH\PYZus{}FROM\PYZus{}URL} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{smok\PYZus{}outcome.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}154}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{mydf}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{mydf}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 123.   121.   123.5 {\ldots},   52.3   47.2   41.6]
+ [  89.8   95.4  101.1 {\ldots},  106.2  100.7   96.2]
+ [ 100.3  104.1  103.9 {\ldots},  109.5  104.8   99.4]
+ {\ldots}, 
+ [ 114.5  111.5  117.5 {\ldots},  114.6  112.4  107.9]
+ [ 106.4  105.4  108.8 {\ldots},   88.7   84.4   80.1]
+ [ 132.2  131.7  140.  {\ldots},  102.9  104.8   90.5]]
+(39, 31)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}160}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{mydf}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{gray}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Y} \PY{o}{=} \PY{n}{Y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}  \PY{c+c1}{\PYZsh{} drop the first row since it is treated and the untreated values for that unit are not available.}
+        
+        \PY{n}{N}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{n}{Y}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
